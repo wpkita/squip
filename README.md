@@ -1,5 +1,7 @@
 # Squip
 
+[![CI](https://github.com/wpkita/squip/actions/workflows/ci.yml/badge.svg)](https://github.com/wpkita/squip/actions/workflows/ci.yml)
+
 Monorepo for Squip, split into a C# backend and an Ionic/Angular frontend:
 
 - [`squip-api/`](squip-api/) — ASP.NET Core REST API (.NET 10), backed by PostgreSQL. Solution projects live under `src/`, tests under `tests/`. See [squip-api/README.md](squip-api/README.md) for local database setup.
@@ -25,7 +27,10 @@ npm start
 
 ## CI
 
-[`azure-pipelines.yml`](azure-pipelines.yml) runs two jobs on every push and PR to `main`: a **backend** job that builds and tests `squip-api/Squip.sln`, and a **frontend** job that builds `squip-app` and runs its unit tests headless.
+GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs on every push and PR to `main`, with two jobs shown by the badge above:
+
+- **Backend (squip-api)** — `dotnet build` + test (`Category!=End-to-end`) of `squip-api/Squip.sln`.
+- **Frontend (squip-app)** — `npm ci`, `ng lint`, `ng build`, and headless `ng test`.
 
 ## License
 

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend (squip-api)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: squip-api/global.json
+      - name: Build
+        run: dotnet build squip-api/Squip.sln --configuration Release
+      - name: Test
+        run: >-
+          dotnet test squip-api/Squip.sln --configuration Release --no-build
+          --filter "Category!=End-to-end"
+
+  frontend:
+    name: Frontend (squip-app)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: squip-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: squip-app/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+      # Google Chrome is preinstalled on the ubuntu-latest runner; the
+      # ChromeHeadlessCI launcher (karma.conf.js) adds --no-sandbox for CI.
+      - name: Test
+        run: npm test -- --watch=false --browsers=ChromeHeadlessCI

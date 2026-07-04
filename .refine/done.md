@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Migrate CI to GitHub Actions with a status badge (user request)
+
+- type: bug | impact: high | effort: medium
+- resolution: The repo is GitHub-hosted (github.com/wpkita/squip) but CI was Azure Pipelines, which requires an external Azure DevOps connection that clearly was not wired up — so CI was not actually running. Per the user's request, replaced it with native GitHub Actions: added `.github/workflows/ci.yml` triggering on push/PR to `main`, with least-privilege `permissions: contents: read` and two jobs on ubuntu-latest — `backend` (setup-dotnet via squip-api/global.json → `dotnet build` + filtered `dotnet test --no-build`) and `frontend` (setup-node 22 with npm cache → `npm ci` → `ng lint` → `ng build` → headless `ng test`). Deleted the now-redundant azure-pipelines.yml, added a CI status-badge chip to the top of the README, and rewrote the README CI section to describe the two workflow jobs. All step commands were already verified green on Linux in prior iterations (backend 6/6, frontend 25/25, lint clean, build OK). The badge shows live status once the workflow runs on the next push.
+
 ### Add automated dependency updates (Dependabot)
 
 - type: feature | impact: medium | effort: medium
