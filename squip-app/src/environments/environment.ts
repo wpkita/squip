@@ -9,7 +9,7 @@ export const environment = {
     domain: 'dev-mm93iifj.us.auth0.com',
     clientId: 'Tqm2994aSMqdDHICFkXHMpFUbv7PDUIM',
     audience: 'https://api.thawta.co',
-    redirectUri: 'http://localhost:8100/'
+    redirectUri: 'http://localhost:4200/'
   },
 };
 
