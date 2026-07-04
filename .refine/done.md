@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Add automated dependency updates (Dependabot)
+
+- type: feature | impact: medium | effort: medium
+- resolution: Added `.github/dependabot.yml` (maturity rung 9) with two weekly update streams — `nuget` rooted at `/squip-api` (resolves Squip.sln + its projects) and `npm` rooted at `/squip-app`. Minor/patch updates are grouped into a single PR per ecosystem to keep noise low; majors get individual PRs. The repo is GitHub-hosted so Dependabot is native; CI stays on Azure Pipelines (no github-actions ecosystem needed). Validated the config against the documented schema shape (version 2, valid ecosystems/directories/schedule/groups).
+
 ### Fix squip-app ESLint errors and enforce `ng lint` in CI
 
 - type: bug | impact: medium | effort: medium

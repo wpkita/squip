@@ -1,0 +1,31 @@
+# Automated dependency updates. Docs:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+  # .NET backend — resolves squip-api/Squip.sln and its projects.
+  - package-ecosystem: "nuget"
+    directory: "/squip-api"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      nuget-minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Ionic/Angular frontend — squip-app/package.json + package-lock.json.
+  - package-ecosystem: "npm"
+    directory: "/squip-app"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      npm-minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"

@@ -2,13 +2,6 @@
 
 Priority order = file order. Topmost item is next.
 
-### Add automated dependency updates (Dependabot/Renovate)
-
-- type: feature
-- impact: medium — maturity rung 9; vuln scanning without an update mechanism just generates guilt. Two ecosystems (NuGet + npm) to keep current.
-- effort: medium — add `.github/dependabot.yml` covering `nuget` (squip-api) and `npm` (squip-app). Host is GitHub, so Dependabot is native.
-- notes: No .github/ config exists yet.
-
 ### Make E2E test base URL configurable instead of hardcoded
 
 - type: feature
