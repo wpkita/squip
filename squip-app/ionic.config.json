@@ -1,0 +1,7 @@
+{
+  "name": "Squip",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

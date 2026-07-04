@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Ideas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="open-add-idea-modal">
+        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list #ideasList>
+    <ion-item>
+      <ion-input
+        [(ngModel)]="tagName"
+        (keyup)="searchTag($event)"
+        placeholder="Enter a tag here to filter"
+      ></ion-input>
+    </ion-item>
+    <ion-item-sliding *ngFor="let idea of ideas">
+      <ion-item>
+        <ion-label>{{idea.title}}</ion-label>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="success">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-item-option color="warning" (click)="edit(idea, ideasList)">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="delete(idea, ideasList)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-modal trigger="open-add-idea-modal" (willDismiss)="dismissAdd($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancelAdd()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>New Idea</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirmAdd()" [strong]="true"
+              >Confirm</ion-button
+            >
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Enter an idea title</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Your idea title"
+            [(ngModel)]="newIdeaName"
+          ></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

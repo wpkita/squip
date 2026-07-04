@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Grooming</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleFilter()">
+        <ion-icon slot="icon-only" name="filter-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngIf="shouldShowFilter">
+    <ion-select
+      placeholder="Select a tag to filter by"
+      [(ngModel)]="filter"
+      (ionChange)="changeFilter()"
+    >
+      <ion-select-option value="">untagged</ion-select-option>
+      <ion-select-option *ngFor="let tag of tags">{{tag}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div class="game" *ngIf="game">
+    <ion-card
+      class="idea card"
+      *ngIf="game.left"
+      [ngClass]="getStatus(game, game.left)"
+      (click)="choose(game, game.left)"
+    >
+      <ion-card-header>
+        <ion-card-title>{{game.left.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{game.left.content}}</ion-card-content>
+    </ion-card>
+    <ion-card
+      class="idea card"
+      *ngIf="game.right"
+      [ngClass]="getStatus(game, game.right)"
+      (click)="choose(game, game.right)"
+    >
+      <ion-card-header>
+        <ion-card-title>{{game.right.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{game.right.content}}</ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

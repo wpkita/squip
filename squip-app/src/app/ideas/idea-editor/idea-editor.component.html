@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Edit Idea</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Enter an idea title</ion-label>
+    <ion-input [(ngModel)]="title" placeholder="Your idea title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input
+      [(ngModel)]="currentTag"
+      (keyup)="changeTag($event, currentTag)"
+      placeholder="Type tags here, press ENTER between"
+    ></ion-input>
+  </ion-item>
+  <ion-item
+    ><ion-chip *ngFor="let tag of tags"
+      ><ion-label>{{ tag }}</ion-label
+      ><ion-icon (click)="removeTag(tag)" name="close"></ion-icon></ion-chip
+  ></ion-item>
+</ion-content>

@@ -1,0 +1,13 @@
+.idea {
+  transition: all 1s;
+}
+
+.idea.winner {
+  background-color: var(--ion-color-success-tint);
+  transform: translateX(110%);
+}
+
+.idea.loser {
+  background-color: var(--ion-color-danger-tint);
+  transform: translateX(-110%);
+}
