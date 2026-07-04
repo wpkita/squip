@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Patch the 10 high-severity npm CVEs in squip-app
+
+- type: bug | impact: high | effort: small-medium
+- resolution: A fresh Analyze pass found 10 high-severity CVEs in shipped frontend deps (`npm audit --omit=dev`). Root causes: `@angular/*` pinned at 20.3.16 (advisories fixed in 20.3.25 — DoS-via-OOM in `digitsInfo` number formatting, HttpTransferCache credentialed-request info-leak) and transitive `lodash` ≤4.17.23 (`_.template` code injection, `_.unset`/`_.omit` prototype pollution). Plain `npm audit fix` only cleared lodash; the framework bump deadlocked npm's peer resolver (the `@angular/localize`/`ng-packagr`/`compiler-cli` exact-version peer web), so used the idiomatic `ng update @angular/core@^20 @angular/cli@^20` to migrate the whole toolchain atomically within the 20.x major (framework → 20.3.25, build tooling → 20.3.31), then `npm audit fix` for lodash. Result: `npm audit --omit=dev` → 0 vulnerabilities (from 10 high). Raised the package.json caret floors to `^20.3.25`/`^20.3.31` so the patched versions can't regress. Left the 31 remaining dev-only build-tooling advisories (`@babel/core`, `http-proxy-middleware`, `uuid` under @angular-devkit) untouched: they don't ship to users and npm's only offered fix is a `--force` breaking downgrade of build-angular to 19.2.8 / jump to compiler-cli 22 — worse than the disease. Also corrected the recon agent's "CRITICAL committed secret" false positive: `environment.ts`'s Auth0 domain/clientId/audience are public SPA (PKCE) identifiers, not secrets — recorded as a low non-security backlog item. Verified: `npm run lint` clean, `ng build` green, 25/25 Karma tests pass; only package.json + package-lock.json changed.
+
 ### Rename the misnamed "EndToEnd" test suite to reflect that they are API integration tests
 
 - type: feature | impact: low-medium | effort: medium

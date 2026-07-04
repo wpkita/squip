@@ -2,13 +2,6 @@
 
 Priority order = file order. Topmost item is next.
 
-### Patch the 10 high-severity npm CVEs in squip-app
-
-- type: bug
-- impact: high — Tier 0 maturity gate: known high-severity CVEs in shipped frontend deps. `@angular/*` 20.0.0–20.3.x carry DoS-via-OOM and HttpTransferCache info-leak/weak-cache-key advisories; transitive `lodash` ≤4.17.23 carries code-injection (`_.template`) and prototype-pollution (`_.unset`/`_.omit`) advisories.
-- effort: small — `npm audit fix` (verified via `--dry-run`) resolves all 10 with semver-compatible bumps; NO `--force`/breaking major required. Then verify `ng lint` clean, `ng build` green, and 25/25 Karma tests pass, and commit the updated package-lock.json.
-- notes: Backend `dotnet list ... --vulnerable` is clean, so this is frontend-only. Re-run `npm audit --omit=dev` after to confirm 0 high/critical remain.
-
 ### Migrate squip-app components to standalone (Angular-recommended)
 
 - type: feature
