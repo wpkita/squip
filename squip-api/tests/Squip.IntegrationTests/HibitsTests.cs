@@ -12,9 +12,9 @@ using NodaTime.Serialization.SystemTextJson;
 using RestSharp.Serializers.Json;
 using Squip.Rest.Habits.Dtos;
 
-namespace Squip.EndToEndTests;
+namespace Squip.IntegrationTests;
 
-[Trait("Category", "End-to-end")]
+[Trait("Category", "Integration")]
 public class HibitsTests
 {
     private JsonSerializerOptions serializerSettings = new JsonSerializerOptions { PropertyNameCaseInsensitive = true }.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
@@ -22,7 +22,7 @@ public class HibitsTests
     [Fact]
     public async Task CreateReadUpdateDelete()
     {
-        var restClient = E2eClient.Create();
+        var restClient = ApiTestClient.Create();
         var postHabitRequest = new RestRequest("habits");
         postHabitRequest.AddJsonBody(new
             { name = "Name goes here" });

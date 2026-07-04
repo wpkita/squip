@@ -8,15 +8,15 @@ using RestSharp;
 using Squip.Rest.Habits.Dtos;
 using Xunit;
 
-namespace Squip.EndToEndTests;
+namespace Squip.IntegrationTests;
 
-[Trait("Category", "End-to-end")]
+[Trait("Category", "Integration")]
 public class HabitsTests
 {
     [Fact]
     public async Task CreateReadUpdateDelete()
     {
-        var restClient = E2eClient.Create();
+        var restClient = ApiTestClient.Create();
         var postRequest = new RestRequest("habits");
         postRequest.AddJsonBody(new
             { name = "Name goes here" });

@@ -29,7 +29,7 @@ npm start
 
 GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs on every push and PR to `main`, with two jobs shown by the badge above:
 
-- **Backend (squip-api)** — `dotnet build` + test (`Category!=End-to-end`) of `squip-api/Squip.sln`.
+- **Backend (squip-api)** — `dotnet build` + test (`Category!=Integration`) of `squip-api/Squip.sln`.
 - **Frontend (squip-app)** — `npm ci`, `ng lint`, `ng build`, and headless `ng test`.
 
 ## License

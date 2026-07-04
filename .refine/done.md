@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Rename the misnamed "EndToEnd" test suite to reflect that they are API integration tests
+
+- type: feature | impact: low-medium | effort: medium
+- resolution: Prompted by the user's question ("Are those even end to end or actually integration tests?"), corrected the misnomer. The `Squip.EndToEndTests` suite drives the backend over real HTTP but never exercises the `squip-app` frontend, so they are black-box API integration tests, not true end-to-end. Renamed via `git mv` to preserve history: project directory + csproj → `Squip.IntegrationTests`, namespace `Squip.EndToEndTests` → `Squip.IntegrationTests`, the `[Trait("Category", "End-to-end")]` → `[Trait("Category", "Integration")]` on all three test classes, and the CI test filter `Category!=End-to-end` → `Category!=Integration` (.github/workflows/ci.yml + root README). For consistency also renamed the just-introduced helper `E2eClient` → `ApiTestClient` and its env var `SQUIP_E2E_BASE_URL` → `SQUIP_API_BASE_URL` (neither used externally yet), and updated the squip-api/README testing section. Updated `Squip.sln`'s project entry. Verified: full solution builds clean (0 warnings/errors) after wiping stale bin/obj; `dotnet test --filter Category!=Integration` correctly excludes the integration dll and runs 6/6 unit tests green. (Historical `.refine/done.md` entries retain the old names, as they record past state.)
+
 ### Make E2E test base URL configurable instead of hardcoded
 
 - type: feature | impact: low-medium | effort: medium

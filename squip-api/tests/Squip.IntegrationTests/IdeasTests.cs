@@ -8,15 +8,15 @@ using RestSharp;
 using Squip.Rest.Ideas.Dtos;
 using Xunit;
 
-namespace Squip.EndToEndTests;
+namespace Squip.IntegrationTests;
 
-[Trait("Category", "End-to-end")]
+[Trait("Category", "Integration")]
 public class IdeasTests
 {
     [Fact]
     public async Task CreateReadUpdateDelete()
     {
-        var restClient = E2eClient.Create();
+        var restClient = ApiTestClient.Create();
         var postRequest = new RestRequest("ideas");
         postRequest.AddJsonBody(new
             { title = "Title goes here", content = "Content goes here", tags = new[] { "Tag1" } });

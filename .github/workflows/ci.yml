@@ -26,7 +26,7 @@ jobs:
       - name: Test
         run: >-
           dotnet test squip-api/Squip.sln --configuration Release --no-build
-          --filter "Category!=End-to-end"
+          --filter "Category!=Integration"
 
   frontend:
     name: Frontend (squip-app)
