@@ -1,5 +1,8 @@
 trigger:
-- develop
+- main
+
+pr:
+- main
 
 pool:
   vmImage: 'windows-latest'
@@ -16,6 +19,3 @@ steps:
     command: 'test'
     projects: '$(solution)'
     arguments: '--filter Category!=End-to-end'
-  env:
-    COSMOS_DB_CONN_STRING: $(COSMOS_DB_CONN_STRING)
-    COSMOS_DB_NAME: $(COSMOS_DB_NAME)
