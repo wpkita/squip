@@ -25,7 +25,7 @@ npm start
 
 ## CI
 
-[`azure-pipelines.yml`](azure-pipelines.yml) builds and tests `squip-api/Squip.sln`.
+[`azure-pipelines.yml`](azure-pipelines.yml) runs two jobs on every push and PR to `main`: a **backend** job that builds and tests `squip-api/Squip.sln`, and a **frontend** job that builds `squip-app` and runs its unit tests headless.
 
 ## License
 

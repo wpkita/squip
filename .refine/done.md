@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Add CI coverage for the frontend (squip-app)
+
+- type: bug | impact: medium | effort: medium
+- resolution: Only the backend ran in CI (maturity rungs 5/7). Converted azure-pipelines.yml from a single job into two: a `backend` job (windows-latest: `dotnet build` + filtered `dotnet test`, unchanged) and a `frontend` job (ubuntu-latest: NodeTool 22.x → `npm ci` → `npm run build` → `npm test -- --watch=false --browsers=ChromeHeadlessCI`). Updated the README CI section to describe both jobs. Deliberately did NOT gate on `ng lint` yet (still 62 errors — separate backlog item). While verifying, discovered the frontend suite was flaky: `AppComponent`'s label-rendering test read `ion-label` text content, which intermittently returns '' because Ionic registers `ion-label` as a global custom element (triggered by any earlier IonicModule test) and moves the text into shadow DOM — under Jasmine's random order the outcome varied. Rewrote it to count the `*ngFor` host elements (structural, stable) and moved title/url verification onto the component model (`appPages`). Verified: `npm ci`, `ng build`, and 8/8 consecutive headless test runs all green (25/25 each). YAML validates to two jobs.
+
 ### Add a root LICENSE file
 
 - type: bug | impact: medium | effort: small

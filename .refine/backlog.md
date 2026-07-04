@@ -2,13 +2,6 @@
 
 Priority order = file order. Topmost item is next.
 
-### Add CI coverage for the frontend (squip-app)
-
-- type: bug
-- impact: medium — the Angular/Ionic app is never built or tested in CI; only the backend is (maturity rungs 5/7). Now unblocked: the frontend unit suite is green (25/25) and `ng build` passes.
-- effort: medium — extend azure-pipelines.yml into two jobs (backend on windows-latest, frontend on ubuntu-latest). Frontend steps: NodeTool (Node 22.x), `npm ci`, `npm run build`, and `npm test -- --watch=false --browsers=ChromeHeadlessCI` (the ChromeHeadlessCI launcher already exists in karma.conf.js). Do NOT gate on `npm run lint` yet — see the lint item below (currently 62 errors). Add the lint gate after that item lands.
-- notes: Verified locally that npm ci, ng build, and the headless test all pass. Node 24 is installed locally; Angular 20 supports 20/22/24 — pin 22.x (LTS) in CI. `git remote` is GitHub (github.com/wpkita/squip) but CI is Azure Pipelines; keep it Azure for this item (migrating CI systems is out of scope).
-
 ### Fix squip-app ESLint errors, then enforce `ng lint` in CI
 
 - type: bug

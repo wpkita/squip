@@ -4,18 +4,41 @@ trigger:
 pr:
 - main
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
   buildConfiguration: 'Release'
   solution: 'squip-api/Squip.sln'
 
-steps:
-- script: dotnet build $(solution) --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '$(solution)'
-    arguments: '--filter Category!=End-to-end'
+jobs:
+- job: backend
+  displayName: 'Backend (squip-api)'
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - script: dotnet build $(solution) --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+      projects: '$(solution)'
+      arguments: '--filter Category!=End-to-end'
+
+- job: frontend
+  displayName: 'Frontend (squip-app)'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '22.x'
+    displayName: 'Use Node.js 22.x'
+  - script: npm ci
+    workingDirectory: squip-app
+    displayName: 'npm ci'
+  - script: npm run build
+    workingDirectory: squip-app
+    displayName: 'ng build'
+  # Google Chrome is preinstalled on the ubuntu-latest image; the
+  # ChromeHeadlessCI launcher (karma.conf.js) adds --no-sandbox for CI.
+  - script: npm test -- --watch=false --browsers=ChromeHeadlessCI
+    workingDirectory: squip-app
+    displayName: 'ng test (headless)'
