@@ -16,7 +16,7 @@ public class IdeasTests
     [Fact]
     public async Task CreateReadUpdateDelete()
     {
-        var restClient = new RestClient("https://localhost:8080/api");
+        var restClient = E2eClient.Create();
         var postRequest = new RestRequest("ideas");
         postRequest.AddJsonBody(new
             { title = "Title goes here", content = "Content goes here", tags = new[] { "Tag1" } });

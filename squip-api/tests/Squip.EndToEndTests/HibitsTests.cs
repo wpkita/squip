@@ -22,7 +22,7 @@ public class HibitsTests
     [Fact]
     public async Task CreateReadUpdateDelete()
     {
-        var restClient = new RestClient("https://localhost:8080/api");
+        var restClient = E2eClient.Create();
         var postHabitRequest = new RestRequest("habits");
         postHabitRequest.AddJsonBody(new
             { name = "Name goes here" });

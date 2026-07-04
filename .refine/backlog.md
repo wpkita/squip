@@ -2,13 +2,6 @@
 
 Priority order = file order. Topmost item is next.
 
-### Make E2E test base URL configurable instead of hardcoded
-
-- type: feature
-- impact: low-medium — HibitsTests/HabitsTests/IdeasTests hardcode `https://localhost:8080/api`; brittle and unrunnable against any other environment.
-- effort: medium — read base URL from an env var/config with the localhost default; share a client factory across the E2E tests.
-- notes: Tests are excluded from CI (`Category!=End-to-end`) but still valuable to run locally/on-demand.
-
 ### Migrate squip-app components to standalone (Angular-recommended)
 
 - type: feature

@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Make E2E test base URL configurable instead of hardcoded
+
+- type: feature | impact: low-medium | effort: medium
+- resolution: All three tests in `Squip.EndToEndTests` (HabitsTests, HibitsTests, IdeasTests) hardcoded `new RestClient("https://localhost:8080/api")`, making them unrunnable against any non-local environment. Added a shared `E2eClient` static factory that reads the base URL from the `SQUIP_E2E_BASE_URL` environment variable (falling back to the `https://localhost:8080/api` default when unset/blank) and exposes `E2eClient.Create()`; replaced the three inline constructor calls with it. Documented the override in a new "Testing" section of squip-api/README.md. Verified the test project builds clean (0 warnings, 0 errors); the tests themselves require a live server so were not executed. Note surfaced while doing this (per the user's question): these are strictly black-box API/integration tests, not true end-to-end (they never exercise the squip-app frontend) — kept the existing `Squip.EndToEndTests`/`Category=End-to-end` naming to avoid a cross-cutting rename, but worded the README to describe them accurately as "black-box API tests."
+
 ### Migrate CI to GitHub Actions with a status badge (user request)
 
 - type: bug | impact: high | effort: medium

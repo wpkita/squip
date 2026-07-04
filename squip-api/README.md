@@ -47,3 +47,21 @@ dotnet ef database update
 ```
 
 This will create all necessary tables (Ideas, Users, Habits, Logs, Moods, Targets, etc.).
+
+## Testing
+
+Unit tests run in CI. The tests in `tests/Squip.EndToEndTests` (tagged
+`Category=End-to-end`) are black-box API tests: they drive the full backend
+stack over HTTP against a *running* server, so they are excluded from CI and
+run on-demand:
+
+```bash
+dotnet test --filter Category=End-to-end
+```
+
+They target `https://localhost:8080/api` by default. Point them at another
+environment with the `SQUIP_E2E_BASE_URL` environment variable:
+
+```bash
+SQUIP_E2E_BASE_URL="https://staging.example.com/api" dotnet test --filter Category=End-to-end
+```
