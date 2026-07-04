@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
@@ -17,15 +17,13 @@ import { MoodsService } from './moods.service';
   standalone: false,
 })
 export class MoodsPage implements OnInit {
+  private moodsService = inject(MoodsService);
+  private checkInsService = inject(CheckInsService);
+  private router = inject(Router);
+
   @ViewChild(IonModal) addModal: IonModal | undefined;
   moodEntries: MoodEntry[] = [];
   newMoodName: string = '';
-
-  constructor(
-    private moodsService: MoodsService,
-    private checkInsService: CheckInsService,
-    private router: Router
-  ) {}
 
   ngOnInit() {
     this.resetMoodEntries();

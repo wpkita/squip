@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 @Component({
   selector: 'app-root',
@@ -7,6 +7,8 @@ import { AuthService } from '@auth0/auth0-angular';
   standalone: false,
 })
 export class AppComponent implements OnInit {
+  authService = inject(AuthService);
+
   public appPages = [
     { title: 'Habits', url: '/habits', icon: 'paper-plane' },
     { title: 'Grooming', url: '/grooming', icon: 'swap-horizontal' },
@@ -16,8 +18,6 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   user: any;
-
-  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
     this.fillUserDetails();

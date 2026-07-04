@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Habit } from '../habit';
 
@@ -8,12 +8,12 @@ import { Habit } from '../habit';
   styleUrls: ['./habit-editor.component.scss'],
   standalone: false,
 })
-export class HabitEditorComponent implements OnInit {
-  constructor(private modalController: ModalController) {}
+export class HabitEditorComponent {
+  private modalController = inject(ModalController);
+
   id: string = '';
   name: string = '';
 
-  ngOnInit() {}
   cancel() {
     return this.modalController.dismiss(null, 'cancel');
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DailySummariesService } from '../daily-summaries.service';
 import { DailySummary } from '../daily-summary';
 
@@ -9,10 +9,9 @@ import { DailySummary } from '../daily-summary';
   standalone: false,
 })
 export class DailySummaryComponent implements OnInit {
+  private dailySummariesService = inject(DailySummariesService);
+
   public dailySummary: DailySummary | undefined;
-  constructor(
-    private dailySummariesService: DailySummariesService
-  ) { }
 
   ngOnInit() {
     this.dailySummariesService.get().subscribe(dailySummary => this.dailySummary = dailySummary);

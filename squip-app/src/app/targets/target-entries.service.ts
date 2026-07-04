@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TargetEntry } from './target-entry';
 import { environment } from 'src/environments/environment';
 import { HttpErrorResponseService } from '../http-error-response.service';
@@ -9,12 +9,10 @@ import { catchError, Observable, retry } from 'rxjs';
   providedIn: 'root',
 })
 export class TargetEntriesService {
-  apiUrl = `${environment.apiUrl}/targets/{targetId}/targetEntries`;
+  private httpClient = inject(HttpClient);
+  private httpErrorResponseService = inject(HttpErrorResponseService);
 
-  constructor(
-    private httpClient: HttpClient,
-    private httpErrorResponseService: HttpErrorResponseService
-  ) {}
+  apiUrl = `${environment.apiUrl}/targets/{targetId}/targetEntries`;
 
   add(targetEntry: TargetEntry): Observable<TargetEntry> {
     return this.httpClient

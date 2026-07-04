@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {throwError} from 'rxjs';
 import {LogService} from './log.service';
 import {NotificationService} from './notification.service';
@@ -8,10 +8,9 @@ import {NotificationService} from './notification.service';
   providedIn: 'root',
 })
 export class HttpErrorResponseService {
-  constructor(
-    private notificationService: NotificationService,
-    private logService: LogService
-  ) {}
+  private notificationService = inject(NotificationService);
+  private logService = inject(LogService);
+
 
   handleError(error: HttpErrorResponse) {
     this.logService.logInfo(error.status + ':' + error.message);

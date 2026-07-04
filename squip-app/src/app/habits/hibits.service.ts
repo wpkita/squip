@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {catchError, Observable, retry} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {HttpErrorResponseService} from '../http-error-response.service';
@@ -10,12 +10,10 @@ import {HibitForCreation} from './hibitForCreation';
   providedIn: 'root',
 })
 export class HibitsService {
-  apiUrl = `${environment.apiUrl}/habits/{habitId}/hibits`;
+  private httpClient = inject(HttpClient);
+  private httpErrorResponseService = inject(HttpErrorResponseService);
 
-  constructor(
-    private httpClient: HttpClient,
-    private httpErrorResponseService: HttpErrorResponseService
-  ) {}
+  apiUrl = `${environment.apiUrl}/habits/{habitId}/hibits`;
 
   add(hibit: HibitForCreation): Observable<Hibit> {
     return this.httpClient

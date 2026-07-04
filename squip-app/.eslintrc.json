@@ -34,7 +34,11 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
+        ],
+        // This app is intentionally NgModule-based (components declare
+        // `standalone: false`). Migrating to standalone components is tracked
+        // as a separate task; until then, don't flag the deliberate opt-out.
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {

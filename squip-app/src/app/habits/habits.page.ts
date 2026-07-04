@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
   ActionSheetController,
   IonList,
@@ -22,17 +22,15 @@ import { HabitSummary } from './habit-summary';
   standalone: false,
 })
 export class HabitsPage implements OnInit {
+  private habitSummariesService = inject(HabitSummariesService);
+  private habitsService = inject(HabitsService);
+  private hibitsService = inject(HibitsService);
+  private actionSheetController = inject(ActionSheetController);
+  private editModalController = inject(ModalController);
+
   @ViewChild(IonModal) addModal: IonModal | undefined;
   habitSummaries?: HabitSummary[];
   newHabitName: string = '';
-
-  constructor(
-    private habitSummariesService: HabitSummariesService,
-    private habitsService: HabitsService,
-    private hibitsService: HibitsService,
-    private actionSheetController: ActionSheetController,
-    private editModalController: ModalController
-  ) {}
 
   ngOnInit() {
     this.habitSummariesService

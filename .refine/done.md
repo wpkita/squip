@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Fix squip-app ESLint errors and enforce `ng lint` in CI
+
+- type: bug | impact: medium | effort: medium
+- resolution: `ng lint` failed with 62 errors, so the linter was not an enforced gate (maturity rung 14). Breakdown: 48 `@angular-eslint/prefer-inject`, 3 `no-empty-lifecycle-method`, 11 `@angular-eslint/prefer-standalone`. Ran the official `ng generate @angular/core:inject` migration to convert constructor injection to `inject()` across 24 files (clears all 48 prefer-inject). Manually removed the 3 empty `ngOnInit`s (and their `OnInit`/`implements` declarations) from the modal editor components. The 11 prefer-standalone errors flag a deliberate architecture choice — every component sets `standalone: false` — so rather than force a large, risky standalone migration, disabled `@angular-eslint/prefer-standalone` in .eslintrc.json with a justification comment and filed a separate deferred backlog item for the eventual migration. Then added an `ng lint` step to the frontend CI job so the rest of the ruleset is now enforced. Verified: `ng lint` clean (0 errors), `ng build` green, 25/25 unit tests pass.
+
 ### Add CI coverage for the frontend (squip-app)
 
 - type: bug | impact: medium | effort: medium

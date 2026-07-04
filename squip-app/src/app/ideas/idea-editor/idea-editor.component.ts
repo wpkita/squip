@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {Idea} from '../idea';
 
@@ -8,19 +8,15 @@ import {Idea} from '../idea';
   styleUrls: ['./idea-editor.component.scss'],
   standalone: false,
 })
-export class IdeaEditorComponent implements OnInit {
+export class IdeaEditorComponent {
+  private modalController = inject(ModalController);
+
   readonly enterKeyCode: number = 13;
   id: string = '';
   title: string = '';
   content: string = '';
   currentTag: string = '';
   tags: string[] = [];
-
-  constructor(
-    private modalController: ModalController
-  ) { }
-
-  ngOnInit() { }
 
   changeTag(event: any, currentTag: string) {
     if (event.keyCode === this.enterKeyCode) {

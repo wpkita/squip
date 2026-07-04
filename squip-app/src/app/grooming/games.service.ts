@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {catchError, Observable, retry} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {HttpErrorResponseService} from '../http-error-response.service';
@@ -9,12 +9,10 @@ import {Game} from './game';
   providedIn: 'root',
 })
 export class GamesService {
-  apiUrl = `${environment.apiUrl}/games`;
+  private httpClient = inject(HttpClient);
+  private httpErrorResponseService = inject(HttpErrorResponseService);
 
-  constructor(
-    private httpClient: HttpClient,
-    private httpErrorResponseService: HttpErrorResponseService
-  ) {}
+  apiUrl = `${environment.apiUrl}/games`;
 
   getNextGame(filter: string): Observable<Game> {
     return this.httpClient.get<Game>(`${this.apiUrl}?filter=${filter}`).pipe(

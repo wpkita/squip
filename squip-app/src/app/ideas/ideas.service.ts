@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {catchError, Observable, retry} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {HttpErrorResponseService} from '../http-error-response.service';
@@ -10,12 +10,10 @@ import {IdeaForCreation} from './idea-for-creation';
   providedIn: 'root',
 })
 export class IdeasService {
-  apiUrl = `${environment.apiUrl}/ideas`;
+  private httpClient = inject(HttpClient);
+  private httpErrorResponseService = inject(HttpErrorResponseService);
 
-  constructor(
-    private httpClient: HttpClient,
-    private httpErrorResponseService: HttpErrorResponseService
-  ) {}
+  apiUrl = `${environment.apiUrl}/ideas`;
 
   getAll(): Observable<Idea[]> {
     return this.httpClient.get<Idea[]>(this.apiUrl).pipe(

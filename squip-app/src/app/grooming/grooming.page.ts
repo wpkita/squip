@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Idea} from '../ideas/idea';
 import {Game} from './game';
 import {GamesService} from './games.service';
@@ -11,15 +11,13 @@ import { IdeasService } from '../ideas/ideas.service';
   standalone: false,
 })
 export class GroomingPage implements OnInit {
+  private gamesService = inject(GamesService);
+  private ideasService = inject(IdeasService);
+
   game?: Game;
   filter: string = '';
   shouldShowFilter: boolean = false;
   tags: string[] = [];
-
-  constructor(
-    private gamesService: GamesService,
-    private ideasService: IdeasService
-  ) { }
 
   ngOnInit(): void {
     this.resetGame();

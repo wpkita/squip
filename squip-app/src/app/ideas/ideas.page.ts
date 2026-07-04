@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
   ActionSheetController,
   IonList,
@@ -18,17 +18,15 @@ import { IdeaEditorComponent } from './idea-editor/idea-editor.component';
   standalone: false,
 })
 export class IdeasPage implements OnInit {
+  private ideasService = inject(IdeasService);
+  private editModalController = inject(ModalController);
+  private actionSheetController = inject(ActionSheetController);
+
   @ViewChild(IonModal) addModal: IonModal | undefined;
   ideas?: Idea[];
   newIdeaName: string = '';
   tagName?: string = '';
   tags: string[] = [];
-
-  constructor(
-    private ideasService: IdeasService,
-    private editModalController: ModalController,
-    private actionSheetController: ActionSheetController
-  ) {}
 
   ngOnInit() {
     this.refreshIdeas();

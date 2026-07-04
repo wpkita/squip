@@ -2,13 +2,6 @@
 
 Priority order = file order. Topmost item is next.
 
-### Fix squip-app ESLint errors, then enforce `ng lint` in CI
-
-- type: bug
-- impact: medium — `ng lint` currently fails with 62 errors, so the linter cannot be an enforced gate (maturity rung 14). Most are Angular 20 modernizations: `@angular-eslint/prefer-inject`, `@angular-eslint/prefer-standalone`, and a few `no-empty-lifecycle-method`.
-- effort: medium — many are auto-fixable via `ng lint --fix` and the Angular migration schematics (`ng generate @angular/core:inject`); `prefer-standalone` may need manual review per component. After green, add `npm run lint` to the frontend CI job.
-- notes: 62 errors across targets/* and other feature modules. Split further if the standalone migration proves large.
-
 ### Add automated dependency updates (Dependabot/Renovate)
 
 - type: feature
@@ -22,3 +15,10 @@ Priority order = file order. Topmost item is next.
 - impact: low-medium — HibitsTests/HabitsTests/IdeasTests hardcode `https://localhost:8080/api`; brittle and unrunnable against any other environment.
 - effort: medium — read base URL from an env var/config with the localhost default; share a client factory across the E2E tests.
 - notes: Tests are excluded from CI (`Category!=End-to-end`) but still valuable to run locally/on-demand.
+
+### Migrate squip-app components to standalone (Angular-recommended)
+
+- type: feature
+- impact: low — code modernization only; the app works fine NgModule-based. Angular recommends standalone going forward, and doing so would let us re-enable the `@angular-eslint/prefer-standalone` rule (currently disabled with justification in .eslintrc.json).
+- effort: large — architectural: use the official `ng generate @angular/core:standalone` 3-step migration, then remove now-empty NgModules and update bootstrap. Touches every feature module and its specs; verify build + all 25 unit tests stay green. Should likely be split per feature module.
+- notes: Deferred deliberately — every component currently sets `standalone: false`. Only pursue if the maintainer wants to modernize; not a defect.

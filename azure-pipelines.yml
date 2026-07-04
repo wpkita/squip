@@ -34,6 +34,9 @@ jobs:
   - script: npm ci
     workingDirectory: squip-app
     displayName: 'npm ci'
+  - script: npm run lint
+    workingDirectory: squip-app
+    displayName: 'ng lint'
   - script: npm run build
     workingDirectory: squip-app
     displayName: 'ng build'

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { IonList, IonModal, ModalController } from '@ionic/angular';
 import { TargetsService } from './targets.service';
 import { OverlayEventDetail } from '@ionic/core/components';
@@ -17,15 +17,14 @@ import { Target } from './target';
   standalone: false,
 })
 export class TargetsPage implements OnInit {
+  private targetsService = inject(TargetsService);
+  private targetSummariesService = inject(TargetSummariesService);
+  private targetEntriesService = inject(TargetEntriesService);
+  private targetEntryModalCreatorModalController = inject(ModalController);
+
   @ViewChild(IonModal) addModal: IonModal | undefined;
   newTargetName: string = '';
   targetSummaries?: TargetSummary[];
-  constructor(
-    private targetsService: TargetsService,
-    private targetSummariesService: TargetSummariesService,
-    private targetEntriesService: TargetEntriesService,
-    private targetEntryModalCreatorModalController: ModalController
-  ) {}
 
   ngOnInit() {
     this.targetSummariesService

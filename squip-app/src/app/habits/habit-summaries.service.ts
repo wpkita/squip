@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {catchError, Observable, retry} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {HttpErrorResponseService} from '../http-error-response.service';
@@ -9,12 +9,10 @@ import {HabitSummary} from './habit-summary';
   providedIn: 'root',
 })
 export class HabitSummariesService {
-  apiUrl = `${environment.apiUrl}/habitSummaries`;
+  private httpClient = inject(HttpClient);
+  private httpErrorResponseService = inject(HttpErrorResponseService);
 
-  constructor(
-    private httpClient: HttpClient,
-    private httpErrorResponseService: HttpErrorResponseService
-  ) {}
+  apiUrl = `${environment.apiUrl}/habitSummaries`;
 
   get(): Observable<HabitSummary[]> {
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;

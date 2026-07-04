@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TargetEntry } from '../target-entry';
 
@@ -8,15 +8,13 @@ import { TargetEntry } from '../target-entry';
   styleUrls: ['./target-entry-creator.component.scss'],
   standalone: false,
 })
-export class TargetEntryCreatorComponent implements OnInit {
+export class TargetEntryCreatorComponent {
+  private modalController = inject(ModalController);
+
   id: string = '';
   name: string = '';
   magnitude: number = 0;
   didEngage: boolean = false;
-
-  constructor(private modalController: ModalController) {}
-
-  ngOnInit() {}
 
   cancel() {
     return this.modalController.dismiss(null, 'cancel');
