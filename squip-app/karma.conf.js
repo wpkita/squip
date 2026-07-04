@@ -35,6 +35,14 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ["Chrome"],
+    customLaunchers: {
+      // Used by CI (`--browsers=ChromeHeadlessCI`); --no-sandbox is required
+      // to run Chrome inside most CI containers.
+      ChromeHeadlessCI: {
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox", "--disable-gpu"],
+      },
+    },
     singleRun: false,
     restartOnFileChange: true,
   });

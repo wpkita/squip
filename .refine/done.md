@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Fix the failing frontend unit test suite (Angular 20 DI regressions)
+
+- type: bug | impact: high | effort: medium
+- resolution: Selected the "add frontend CI" item, but executing it revealed the squip-app Karma suite was entirely red — 16 of 25 tests failing — so per the maturity ladder (a red suite outranks every feature) the prerequisite was fixed first. Two root causes, both fallout from the Angular 15→20 upgrade where the specs were never updated: (1) 13 service/component specs never provided `HttpClient` (NG0201: No provider for HttpClient) — added `provideHttpClient()` + `provideHttpClientTesting()` to each TestBed; (2) AppComponent's spec injected the real Auth0 `AuthService` (NG0201: auth0.client token) and asserted a stale menu (Inbox/Outbox, 12 items) that no longer matches the template (5 nav pages) — mocked `AuthService`, replaced deprecated `RouterTestingModule` with `RouterModule.forRoot([])`, and rewrote the two DOM assertions against the current `appPages` (Angular 20 also dropped `ng-reflect-*` attributes, so the url check now asserts the nav config directly). Also added a `ChromeHeadlessCI` custom launcher (`--no-sandbox`) to karma.conf.js so the suite runs headless in CI/containers. Verified: `npm test -- --watch=false --browsers=ChromeHeadlessCI` → 25/25 pass; `ng build` still green.
+
 ### Fix azure-pipelines.yml so CI actually runs, and drop dead Cosmos env vars
 
 - type: bug | impact: high | effort: small
