@@ -6,13 +6,15 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  solution: 'squip-api/Squip.sln'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build $(solution) --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
+    projects: '$(solution)'
     arguments: '--filter Category!=End-to-end'
   env:
     COSMOS_DB_CONN_STRING: $(COSMOS_DB_CONN_STRING)
