@@ -26,3 +26,7 @@ npm start
 ## CI
 
 [`azure-pipelines.yml`](azure-pipelines.yml) builds and tests `squip-api/Squip.sln`.
+
+## License
+
+Released under the [MIT License](LICENSE).

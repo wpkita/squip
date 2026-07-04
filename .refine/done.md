@@ -2,6 +2,11 @@
 
 Completed items, newest first.
 
+### Add a root LICENSE file
+
+- type: bug | impact: medium | effort: small
+- resolution: Tier 0 gate (maturity rung 2). Only `squip-api/LICENSE` existed; the monorepo root and the separately-deployable `squip-app` were unlicensed, so a reader at the repo root saw no license. Added a root `LICENSE` (MIT, verbatim match to squip-api's — © 2026 Squip) covering the whole monorepo, and added a "License" section to the root README linking to it. First line is `MIT License`, so GitHub/SPDX license detection recognizes it.
+
 ### Fix the failing frontend unit test suite (Angular 20 DI regressions)
 
 - type: bug | impact: high | effort: medium

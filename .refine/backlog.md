@@ -2,13 +2,6 @@
 
 Priority order = file order. Topmost item is next.
 
-### Add a root LICENSE file
-
-- type: bug
-- impact: medium — Tier 0 gate (maturity rung 2). Only `squip-api/LICENSE` (MIT) exists; the monorepo root and the separately-deployable `squip-app` have no license, so a reader at the repo root sees an unlicensed project.
-- effort: small — add root `LICENSE` (MIT, matching squip-api's, copyright "2026 Squip") and reference it from the root README.
-- notes: squip-api/LICENSE is MIT (c) 2026 Squip. Reuse the same terms at the root.
-
 ### Add CI coverage for the frontend (squip-app)
 
 - type: bug
